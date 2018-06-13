@@ -1,0 +1,30 @@
+<form [formGroup]="myForm" >      
+  <!--addresses-->
+  <div formArrayName="fields">
+    <div *ngFor="let field of myForm.controls.fields.controls; let i=index">
+      <a (click)="removeField(i)" href="#" >remove -</a>
+      <div formGroupName="{{i}}">
+        <input type="text" formControlName="street">            
+        <div formArrayName="randoms">
+          <div *ngFor="let random of field.controls['randoms'].controls; let j=index">
+            <div formGroupName="{{j}}">
+              <input type="text" formControlName="street1">            
+              <input type="text" formControlName="postcode1">                                                
+            </div>  
+          </div>
+        </div>          
+      </div>
+    </div>
+  </div>
+
+  <a (click)="addField()" href="#" >Add +</a>
+  
+  
+
+  <div class="margin-20">
+    <div>myForm details:-</div>
+    <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+    <pre>form value: <br>{{myForm.value | json}}</pre>
+  </div>
+</form>
+
