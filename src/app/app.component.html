@@ -1,18 +1,20 @@
 <form [formGroup]="myForm" >      
   <!--addresses-->
   <div formArrayName="fields">
-    <div *ngFor="let field of myForm.controls.fields.controls; let i=index">
+    <div *ngFor="let field of myForm.controls.fields.controls; let i=index" [formGroupName]="i">
       <a (click)="removeField(i)" href="#" >remove -</a>
-      <div formGroupName="{{i}}">
+      <div >
         <input type="text" formControlName="street">            
-        <div formArrayName="randoms">
-          <div *ngFor="let random of field.controls['randoms'].controls; let j=index">
-            <div formGroupName="{{j}}">
-              <input type="text" formControlName="street1">            
-              <input type="text" formControlName="postcode1">                                                
-            </div>  
+        <div [formGroup]="field.controls.randoms">
+            randoms:{{field.controls.randoms.value | json}}
+              <input type="text" formControlName="street1">    
+              <div formArrayName="browns">
+                  <div *ngFor="let post of browns.controls; let r=index" [formGroupName]="r">
+                      <input type="text" formControlName="street2">                                                
+                  </div>        
+              </div>
+          
           </div>
-        </div>          
       </div>
     </div>
   </div>

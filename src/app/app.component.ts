@@ -7,7 +7,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
     public myForm: FormGroup;
-    value:any;
+
     constructor(private _fb: FormBuilder) { }
     
     ngOnInit() {
@@ -16,20 +16,23 @@ export class AppComponent implements OnInit {
                 this.initFields()
             ])
         });
+        
     }
 
     initFields() {
         return this._fb.group({
             street: ['', Validators.required],
-            randoms: this._fb.array([
-                this._fb.group({
+            randoms: this._fb.group({
                     street1: ['', Validators.required],
-                    postcode1: ['']
+                    browns: this._fb.array([
+                        this._fb.group({
+                            street2: ['', Validators.required]                            
+                        })
+                    ])
                 })
-            ])
         });
     }
-
+    
     addField() {
         const control = <FormArray>this.myForm.controls['fields'];
         control.push(this.initFields());
